@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 129816728}
   m_Layer: 0
   m_Name: desk
-  m_TagString: Untagged
+  m_TagString: Desk
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -462,6 +462,7 @@ GameObject:
   m_Component:
   - component: {fileID: 427805322}
   - component: {fileID: 427805323}
+  - component: {fileID: 427805324}
   m_Layer: 0
   m_Name: Blocks
   m_TagString: Untagged
@@ -495,6 +496,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 970cfeced9ad268429a36e6076db7506, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minLayer: 0
+--- !u!114 &427805324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 427805321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bc0303a3b6eb3b4882fa0710ea0929e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &740180945

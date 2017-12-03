@@ -39,7 +39,7 @@ public class DragAndHit : MonoBehaviour
         if (hit.collider != null && hit.transform.CompareTag("Block"))
         {
             print("hit " + hit.transform.name);
-			hit.transform.GetComponent<Rigidbody2D>().AddForce(forceDir * 10, ForceMode2D.Impulse);
+			hit.transform.GetComponent<Rigidbody2D>().AddForce(forceDir * 3, ForceMode2D.Impulse);
         }
     }
 }
