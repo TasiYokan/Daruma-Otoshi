@@ -33,13 +33,9 @@ public class BlockManager : MonoBehaviour
 
     public void UpdateBottomBlock()
     {
-        blocks[0].isBottomMost = false;
         blocks.Sort((x, y) =>
         {
             return (x.transform.position.y - y.transform.position.y).Sgn();
         });
-
-        print("bottom " + blocks[0].name);
-        blocks[0].isBottomMost = true;
     }
 }

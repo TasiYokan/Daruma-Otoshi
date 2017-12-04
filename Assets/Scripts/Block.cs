@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    public bool isBottomMost = false;
     private bool hasBeenMarkedDestroyed = false;
 
     // Use this for initialization
@@ -25,7 +24,7 @@ public class Block : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Desk") && isBottomMost == false)
+        if(collision.CompareTag("Desk"))
         {
             print("Fall on the desk " + name);
             StartCoroutine(DestroyGameobject());

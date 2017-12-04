@@ -24,7 +24,7 @@ public class BlockGenerator : MonoBehaviour
     private void GenerateNewBlock()
     {
 		minLayer--;
-        GameObject block = GameObject.Instantiate(Resources.Load("block") as GameObject, Vector3.zero, Quaternion.identity, this.transform);
+        GameObject block = GameObject.Instantiate(Resources.Load("block") as GameObject, Vector3.up * 0.5f, Quaternion.identity, this.transform);
 		block.GetComponent<SpriteRenderer>().sortingOrder = minLayer;
 
         BlockManager.Instance.blocks.Add(block.GetComponent<Block>());
