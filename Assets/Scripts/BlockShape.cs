@@ -30,20 +30,20 @@ public class BlockShape : MonoBehaviour
     void Update()
     {
         print((transform.localEulerAngles.z + 90) % 360 > 180);
-        float amplify = 0.05f;
+        float amplify = 0.06f;
 
         scale = Mathf.Sin(((transform.localEulerAngles.z + 90) % 360) / 180f * Mathf.PI); //Mathf.Clamp(scale, -1, 1);
         top.localScale = top.localScale.SetY(Mathf.Clamp(scale, 0, 1));
-        top.localPosition = top.localPosition.SetY(initTopY + Mathf.Abs(Mathf.Cos(transform.localEulerAngles.z / 180f * Mathf.PI) * amplify));
+        top.localPosition = top.localPosition.SetY(initTopY + top.localScale.y * amplify);
 
         topInverse.localScale = topInverse.localScale.SetY(Mathf.Clamp(-scale, 0, 1));
-        topInverse.localPosition = topInverse.localPosition.SetY(initTopInverseY + Mathf.Abs(Mathf.Cos(transform.localEulerAngles.z / 180f * Mathf.PI) * amplify));
+        topInverse.localPosition = topInverse.localPosition.SetY(initTopInverseY + top.localScale.y * amplify);
 
         bottom.localScale = bottom.localScale.SetY(Mathf.Clamp(scale, 0, 1));
-        bottom.localPosition = bottom.localPosition.SetY(initBottomY + Mathf.Abs(Mathf.Cos(transform.localEulerAngles.z / 180f * Mathf.PI) * amplify));
+        bottom.localPosition = bottom.localPosition.SetY(initBottomY - top.localScale.y * amplify);
 
         bottomInverse.localScale = bottomInverse.localScale.SetY(Mathf.Clamp(-scale, 0, 1));
-        bottomInverse.localPosition = bottomInverse.localPosition.SetY(initBottomInverseY + Mathf.Abs(Mathf.Cos(transform.localEulerAngles.z / 180f * Mathf.PI) * amplify));
+        bottomInverse.localPosition = bottomInverse.localPosition.SetY(initBottomInverseY - top.localScale.y * amplify);
 
 
         if (scale.Sgn() * lastScale.Sgn() < 0)
