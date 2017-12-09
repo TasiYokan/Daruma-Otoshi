@@ -60,10 +60,10 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0
+    - _Glossiness: 0.022
     - _GlossyReflections: 1
-    - _LineOffset: -2343
-    - _Metallic: 0.547
+    - _LineOffset: -1
+    - _Metallic: 0.135
     - _Mode: 0
     - _OcclusionStrength: 1
     - _OutlineCutoff: 0.005
@@ -76,4 +76,4 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineColor: {r: 0.30882353, g: 0.30882353, b: 0.30882353, a: 1}
+    - _OutlineColor: {r: 0.8602941, g: 0.06325693, b: 0.06325693, a: 1}
