@@ -56,6 +56,7 @@ public class BlockShape : MonoBehaviour
         }
         lastScale = scale;
 
-        transform.Rotate(Vector3.forward, 1f);
+        // For test only
+        //transform.Rotate(Vector3.forward, 1f);
     }
 }
