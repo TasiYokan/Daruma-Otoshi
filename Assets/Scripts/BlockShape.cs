@@ -8,6 +8,7 @@ public class BlockShape : MonoBehaviour
     public Transform topInverse;
     public Transform bottom;
     public Transform bottomInverse;
+    public Transform body;
 
     public float scale;
     private float lastScale;
@@ -17,6 +18,23 @@ public class BlockShape : MonoBehaviour
     private float initBottomY;
     private float initBottomInverseY;
 
+    [SerializeField]
+    private int m_baseOrder;
+
+    public int BaseOrder
+    {
+        get
+        {
+            return m_baseOrder;
+        }
+
+        set
+        {
+            m_baseOrder = value;
+            UpdateAllSpritesOrder();
+        }
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -24,6 +42,18 @@ public class BlockShape : MonoBehaviour
         initTopInverseY = topInverse.localPosition.y;
         initBottomY = bottom.localPosition.y;
         initBottomInverseY = bottomInverse.localPosition.y;
+
+        BaseOrder = m_baseOrder;
+        transform.localPosition = transform.localPosition.SetZ(-transform.localPosition.y * 0.1f);
+    }
+
+    private void UpdateAllSpritesOrder()
+    {
+        top.GetComponent<SpriteRenderer>().sortingOrder = m_baseOrder * 5 + 3;
+        topInverse.GetComponent<SpriteRenderer>().sortingOrder = m_baseOrder * 5 + 2;
+        body.GetComponent<SpriteRenderer>().sortingOrder = m_baseOrder * 5 + 1;
+        bottom.GetComponent<SpriteRenderer>().sortingOrder = m_baseOrder * 5 + 3;
+        bottom.GetComponent<SpriteRenderer>().sortingOrder = m_baseOrder * 5 + 2;
     }
 
     // Update is called once per frame
