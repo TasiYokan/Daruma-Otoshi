@@ -9,7 +9,7 @@ Physics2DSettings:
   m_VelocityIterations: 10
   m_PositionIterations: 10
   m_VelocityThreshold: 1
-  m_MaxLinearCorrection: 2
+  m_MaxLinearCorrection: 1
   m_MaxAngularCorrection: 1
   m_MaxTranslationSpeed: 100
   m_MaxRotationSpeed: 360
