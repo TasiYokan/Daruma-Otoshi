@@ -281,7 +281,7 @@ MonoBehaviour:
   bottomInverse: {fileID: 4578117308384190}
   body: {fileID: 4767226467099808}
   scale: 1
-  m_baseOrder: 3
+  m_baseOrder: 0
 --- !u!114 &114383948273139200
 MonoBehaviour:
   m_ObjectHideFlags: 1
