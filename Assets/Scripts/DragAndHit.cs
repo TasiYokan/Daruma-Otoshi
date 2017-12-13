@@ -10,6 +10,7 @@ public class DragAndHit : MonoBehaviour
     private bool m_isMoving = false;
     public GameObject StartCircle;
     public GameObject curCircle;
+    public TouchLine touchLine;
 
     // Use this for initialization
     void Start()
@@ -23,17 +24,15 @@ public class DragAndHit : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             startPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            StartCircle.SetActive(true);
+            touchLine.IsVisible = true;
             StartCircle.transform.position = startPos.SetZ(-2);
-            curCircle.SetActive(true);
             curCircle.transform.position = StartCircle.transform.position;
         }
         else if (Input.GetMouseButtonUp(0))
         {
             print("Release force " + (startPos - Camera.main.ScreenToWorldPoint(Input.mousePosition)));
             FindTargetBlock();
-            StartCircle.SetActive(false);
-            curCircle.SetActive(false);
+            touchLine.IsVisible = false;
         }
 
         if (Input.GetMouseButton(0))
@@ -41,7 +40,7 @@ public class DragAndHit : MonoBehaviour
             Debug.DrawLine(startPos, Camera.main.ScreenToWorldPoint(Input.mousePosition), Color.red);
             //hammerSprite.enabled = true;
             hammerSprite.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition).SetZ(0);
-            curCircle.transform.position = hammerSprite.transform.position;
+            curCircle.transform.position = (hammerSprite.transform.position - startPos) * 0.7f + startPos;
         }
         else if (m_isMoving == false)
         {
@@ -60,7 +59,7 @@ public class DragAndHit : MonoBehaviour
 
             StartCoroutine(SwapHammerTo(hit.point - Vector2.left * 0.85f, () =>
               {
-                  hit.transform.GetComponent<Rigidbody2D>().AddForce(forceDir * 3, ForceMode2D.Impulse);
+                  hit.transform.GetComponent<Rigidbody2D>().AddForce(forceDir * 4, ForceMode2D.Impulse);
               }));
         }
     }
