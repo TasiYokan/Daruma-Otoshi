@@ -14,12 +14,15 @@ Properties {
 
 	_Stroke ("Stroke alpha", Range(0,1)) = 0.1
 	_StrokeColor ("Stroke color", Color) = (1,1,1,1)
+
+    _Alpha("Alpha", Range(0,1)) = 0.5
 }
 SubShader {
 	Tags {"Queue"="AlphaTest" "IgnoreProjector"="True" "RenderType"="TransparentCutout"}
 	LOD 100
 
 	Lighting Off
+        Blend SrcAlpha OneMinusSrcAlpha
 
 	Pass {  
 		CGPROGRAM
@@ -48,6 +51,8 @@ SubShader {
 			fixed _Stroke;
 			half4 _StrokeColor;
 
+            fixed _Alpha;
+
 			v2f vert (appdata_t v) {
 				v2f o;
 				o.vertex = UnityObjectToClipPos(v.vertex);
@@ -64,7 +69,7 @@ SubShader {
 				} else {
 					col = _Color;
 				}
-
+                col.a = _Alpha;
 				return col;
 			}
 		ENDCG

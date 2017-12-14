@@ -55,7 +55,7 @@ public class DragAndHit : MonoBehaviour
         // Debug.DrawLine(startPos, Camera.main.ScreenToWorldPoint(Input.mousePosition));
         if (hit.collider != null && hit.transform.CompareTag("Block"))
         {
-            print("hit " + hit.transform.name);
+            //print("hit " + hit.transform.name);
 
             StartCoroutine(SwapHammerTo(hit.point - Vector2.left * 0.85f, () =>
               {
@@ -70,8 +70,8 @@ public class DragAndHit : MonoBehaviour
         while ((hammerSprite.transform.position - _targetPos).SetZ(0).magnitude > 0.1f)
         {
             Vector3 dis = (_targetPos - hammerSprite.transform.position).SetZ(0);
-            print("hammer pos " + hammerSprite.transform.position);
-            print("dis " + dis.magnitude);
+            //print("hammer pos " + hammerSprite.transform.position);
+            //print("dis " + dis.magnitude);
             hammerSprite.transform.Translate(dis * 0.5f);
 
             yield return null;

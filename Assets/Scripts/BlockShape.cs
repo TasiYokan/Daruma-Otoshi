@@ -59,7 +59,7 @@ public class BlockShape : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print((transform.localEulerAngles.z + 90) % 360 > 180);
+        //print((transform.localEulerAngles.z + 90) % 360 > 180);
         float amplify = 0.06f;
 
         scale = Mathf.Sin(((transform.localEulerAngles.z + 90) % 360) / 180f * Mathf.PI); //Mathf.Clamp(scale, -1, 1);

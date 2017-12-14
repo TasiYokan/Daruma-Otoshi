@@ -1447,6 +1447,8 @@ MonoBehaviour:
   firstCirlce: {fileID: 1927758249}
   secondCircle: {fileID: 956175933}
   thirdCircle: {fileID: 737136876}
+  alpha: 0.1
+  renderer: {fileID: 1493579485}
 --- !u!4 &844515895 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4137967816848916, guid: 753a78fc3ab283d498461d525d3c8d5e,

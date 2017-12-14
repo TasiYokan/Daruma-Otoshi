@@ -26,7 +26,7 @@ Shader "Hidden/BlurEffectConeTap" {
 		half4 color = tex2D(_MainTex, i.taps[0]);
 		color += tex2D(_MainTex, i.taps[1]);
 		color += tex2D(_MainTex, i.taps[2]);
-		color += tex2D(_MainTex, i.taps[3]); 
+		color += tex2D(_MainTex, i.taps[3]);
 		return color * 0.25;
 	}
 	ENDCG
