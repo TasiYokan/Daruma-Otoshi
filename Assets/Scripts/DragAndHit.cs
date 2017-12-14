@@ -23,10 +23,10 @@ public class DragAndHit : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            startPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            startPos = Camera.main.ScreenToWorldPoint(Input.mousePosition).SetZ(-2);
             touchLine.IsVisible = true;
             StartCircle.transform.position = startPos.SetZ(-2);
-            curCircle.transform.position = StartCircle.transform.position;
+            curCircle.transform.position = StartCircle.transform.position.SetZ(-2);
         }
         else if (Input.GetMouseButtonUp(0))
         {
@@ -37,10 +37,10 @@ public class DragAndHit : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            Debug.DrawLine(startPos, Camera.main.ScreenToWorldPoint(Input.mousePosition), Color.red);
+            Debug.DrawLine(startPos, Camera.main.ScreenToWorldPoint(Input.mousePosition).SetZ(-2), Color.red);
             //hammerSprite.enabled = true;
-            hammerSprite.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition).SetZ(0);
-            curCircle.transform.position = (hammerSprite.transform.position - startPos) * 0.7f + startPos;
+            hammerSprite.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition).SetZ(-2);
+            curCircle.transform.position = ((hammerSprite.transform.position - startPos) * 0.7f + startPos).SetZ(-2);
         }
         else if (m_isMoving == false)
         {
