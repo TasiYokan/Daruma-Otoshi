@@ -47,7 +47,7 @@ public class BlockManager : MonoBehaviour
 
     private void GenerateNewSet()
     {
-        for(int i = 0; i< 6;++i)
+        for (int i = 0; i < 6; ++i)
         {
             GenerateNewBlock(i);
         }
@@ -55,7 +55,9 @@ public class BlockManager : MonoBehaviour
 
     private void GenerateNewBlock(int _id)
     {
-        GameObject block = GameObject.Instantiate(Resources.Load("ComBlock_Purple") as GameObject, Vector3.up * 0.8f * _id + Vector3.up, Quaternion.identity, this.transform);
+        string blockType;
+        blockType = Random.Range(0f, 1f) > 0.5f ? "ComBlock_Purple" : "ComBlock_Grey";
+        GameObject block = GameObject.Instantiate(Resources.Load(blockType) as GameObject, Vector3.up * 0.8f * _id + Vector3.up, Quaternion.identity, this.transform);
         block.name = "ComBlock " + _id;
 
         BlockManager.Instance.blocks.Add(block.GetComponent<Block>());

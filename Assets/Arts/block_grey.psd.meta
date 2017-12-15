@@ -1,12 +1,12 @@
 fileFormatVersion: 2
-guid: 859ab43be19b9f44ea70feaa0c8ccd32
-timeCreated: 1513312792
+guid: 5797f9533e8b0b64290ed7e0bd23a655
+timeCreated: 1513315861
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: block_purple_top
-    21300002: block_purple_body
-    21300004: block_purple_bottom
+    21300000: block_grey_top
+    21300002: block_grey_body
+    21300004: block_grey_bottom
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -86,7 +86,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: block_purple_top
+      name: block_grey_top
       rect:
         serializedVersion: 2
         x: 0
@@ -100,7 +100,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: block_purple_body
+      name: block_grey_body
       rect:
         serializedVersion: 2
         x: 0
@@ -114,7 +114,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: block_purple_bottom
+      name: block_grey_bottom
       rect:
         serializedVersion: 2
         x: 0
