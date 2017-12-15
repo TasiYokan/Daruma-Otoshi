@@ -55,7 +55,7 @@ public class BlockManager : MonoBehaviour
 
     private void GenerateNewBlock(int _id)
     {
-        GameObject block = GameObject.Instantiate(Resources.Load("ComBlock") as GameObject, Vector3.up * 0.8f * _id + Vector3.up, Quaternion.identity, this.transform);
+        GameObject block = GameObject.Instantiate(Resources.Load("ComBlock_Purple") as GameObject, Vector3.up * 0.8f * _id + Vector3.up, Quaternion.identity, this.transform);
         block.name = "ComBlock " + _id;
 
         BlockManager.Instance.blocks.Add(block.GetComponent<Block>());
