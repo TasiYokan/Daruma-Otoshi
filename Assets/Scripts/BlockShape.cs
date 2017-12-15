@@ -54,11 +54,11 @@ public class BlockShape : MonoBehaviour
 
     private void UpdateAllSpritesOrder()
     {
-        top.GetComponent<SpriteRenderer>().sortingOrder = m_baseOrder * 5 + 3;
+        top.GetComponent<SpriteRenderer>().sortingOrder = m_baseOrder * 5 + 4;
         topInverse.GetComponent<SpriteRenderer>().sortingOrder = m_baseOrder * 5 + 2;
         body.GetComponent<SpriteRenderer>().sortingOrder = m_baseOrder * 5 + 1;
-        bottom.GetComponent<SpriteRenderer>().sortingOrder = m_baseOrder * 5 + 3;
-        bottom.GetComponent<SpriteRenderer>().sortingOrder = m_baseOrder * 5 + 2;
+        bottom.GetComponent<SpriteRenderer>().sortingOrder = m_baseOrder * 5 + 4;
+        bottomInverse.GetComponent<SpriteRenderer>().sortingOrder = m_baseOrder * 5 + 2;
     }
 
     // Update is called once per frame
@@ -84,10 +84,10 @@ public class BlockShape : MonoBehaviour
         if (scale.Sgn() * lastScale.Sgn() < 0)
         {
             //print("inverse");
-            top.GetComponent<SpriteRenderer>().sortingOrder = scale.Sgn();
-            topInverse.GetComponent<SpriteRenderer>().sortingOrder = -scale.Sgn();
-            bottom.GetComponent<SpriteRenderer>().sortingOrder = scale.Sgn();
-            bottomInverse.GetComponent<SpriteRenderer>().sortingOrder = -scale.Sgn();
+            top.GetComponent<SpriteRenderer>().sortingOrder = m_baseOrder * 5 + 3 + scale.Sgn();
+            topInverse.GetComponent<SpriteRenderer>().sortingOrder = m_baseOrder * 5 + 3 - scale.Sgn();
+            bottom.GetComponent<SpriteRenderer>().sortingOrder = m_baseOrder * 5 + 3 + scale.Sgn();
+            bottomInverse.GetComponent<SpriteRenderer>().sortingOrder = m_baseOrder * 5 + 3 - scale.Sgn();
         }
         lastScale = scale;
 

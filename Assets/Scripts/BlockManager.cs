@@ -35,6 +35,9 @@ public class BlockManager : MonoBehaviour
     {
         blocks.Sort((x, y) =>
         {
+            // In case it has been destroied.
+            if (x.gameObject == null || y.gameObject == null)
+                return 1;
             return (x.transform.position.y - y.transform.position.y).Sgn();
         });
 
@@ -59,6 +62,7 @@ public class BlockManager : MonoBehaviour
         blockType = Random.Range(0f, 1f) > 0.5f ? "ComBlock_Purple" : "ComBlock_Grey";
         GameObject block = GameObject.Instantiate(Resources.Load(blockType) as GameObject, Vector3.up * 0.8f * _id + Vector3.up, Quaternion.identity, this.transform);
         block.name = "ComBlock " + _id;
+        block.GetComponent<BlockShape>().BaseOrder = _id;
 
         BlockManager.Instance.blocks.Add(block.GetComponent<Block>());
         BlockManager.Instance.UpdateBottomBlock();

@@ -2,9 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum BlockType
+{
+    Purple,
+    Grey
+}
+
 public class Block : MonoBehaviour
 {
     private bool hasBeenMarkedDestroyed = false;
+    public BlockType blockType;
 
     // Use this for initialization
     void Start()
@@ -28,6 +35,13 @@ public class Block : MonoBehaviour
         {
             //print("Fall on the desk " + name);
             StartCoroutine(DestroyGameobject());
+        }
+        else if(collision.CompareTag("Block"))
+        {
+            if(collision.transform.GetComponent<Block>().blockType == blockType)
+            {
+                print("it's the same type " + blockType);
+            }
         }
     }
 
