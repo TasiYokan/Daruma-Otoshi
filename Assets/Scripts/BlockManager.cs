@@ -41,6 +41,10 @@ public class BlockManager : MonoBehaviour
             return (x.transform.position.y - y.transform.position.y).Sgn();
         });
 
+        for(int i = 0; i< blocks.Count;++i)
+        {
+            blocks[i].transform.GetComponent<BlockShape>().BaseOrder = i;
+        }
         if (blocks.Count == 0)
         {
             print("no more blocks");
