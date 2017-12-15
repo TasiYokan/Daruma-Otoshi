@@ -30,7 +30,7 @@ public class DragAndHit : MonoBehaviour
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            print("Release force " + (startPos - Camera.main.ScreenToWorldPoint(Input.mousePosition)));
+            //print("Release force " + (startPos - Camera.main.ScreenToWorldPoint(Input.mousePosition)));
             FindTargetBlock();
             touchLine.IsVisible = false;
         }

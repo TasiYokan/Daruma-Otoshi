@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BlockManager : MonoBehaviour
 {
-	public List<Block> blocks;
+    public List<Block> blocks;
     private static BlockManager m_instance;
 
     public static BlockManager Instance
@@ -21,7 +21,7 @@ public class BlockManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-		blocks = GetComponentsInChildren<Block>().ToList();
+        blocks = GetComponentsInChildren<Block>().ToList();
         UpdateBottomBlock();
     }
 
@@ -37,5 +37,28 @@ public class BlockManager : MonoBehaviour
         {
             return (x.transform.position.y - y.transform.position.y).Sgn();
         });
+
+        if (blocks.Count == 0)
+        {
+            print("no more blocks");
+            GenerateNewSet();
+        }
+    }
+
+    private void GenerateNewSet()
+    {
+        for(int i = 0; i< 6;++i)
+        {
+            GenerateNewBlock(i);
+        }
+    }
+
+    private void GenerateNewBlock(int _id)
+    {
+        GameObject block = GameObject.Instantiate(Resources.Load("ComBlock") as GameObject, Vector3.up * 0.8f * _id + Vector3.up, Quaternion.identity, this.transform);
+        block.name = "ComBlock " + _id;
+
+        BlockManager.Instance.blocks.Add(block.GetComponent<Block>());
+        BlockManager.Instance.UpdateBottomBlock();
     }
 }

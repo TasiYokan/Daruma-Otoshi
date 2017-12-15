@@ -17,7 +17,7 @@ public class Block : MonoBehaviour
     {
         if(transform.position.y < -1 && hasBeenMarkedDestroyed == false)
         {
-            print("Fall from desk " + name);
+            //print("Fall from desk " + name);
             StartCoroutine(DestroyGameobject());
         }
     }
@@ -26,7 +26,7 @@ public class Block : MonoBehaviour
     {
         if(collision.CompareTag("Desk"))
         {
-            print("Fall on the desk " + name);
+            //print("Fall on the desk " + name);
             StartCoroutine(DestroyGameobject());
         }
     }

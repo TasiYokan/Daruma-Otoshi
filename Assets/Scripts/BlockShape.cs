@@ -44,6 +44,11 @@ public class BlockShape : MonoBehaviour
         initBottomInverseY = bottomInverse.localPosition.y;
 
         BaseOrder = m_baseOrder;
+        SetDepthBasedOnY();
+    }
+
+    public void SetDepthBasedOnY()
+    {
         transform.localPosition = transform.localPosition.SetZ(-transform.localPosition.y * 0.1f);
     }
 
@@ -78,7 +83,7 @@ public class BlockShape : MonoBehaviour
 
         if (scale.Sgn() * lastScale.Sgn() < 0)
         {
-            print("inverse");
+            //print("inverse");
             top.GetComponent<SpriteRenderer>().sortingOrder = scale.Sgn();
             topInverse.GetComponent<SpriteRenderer>().sortingOrder = -scale.Sgn();
             bottom.GetComponent<SpriteRenderer>().sortingOrder = scale.Sgn();
