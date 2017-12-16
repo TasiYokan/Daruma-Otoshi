@@ -52,15 +52,6 @@ public class Block : MonoBehaviour
             //print("Fall on the desk " + name);
             StartCoroutine(DestroyGameobject());
         }
-        else if (collision.CompareTag("Block"))
-        {
-            //if (collision.transform.GetComponent<Block>().blockType == blockType)
-            //{
-                print("it's the same type " + blockType);
-                if (isStable == false && collision.transform.position.y < transform.position.y)
-                    StartCoroutine(WaitTillStable());
-            //}
-        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -76,54 +67,5 @@ public class Block : MonoBehaviour
 
         BlockManager.Instance.blocks.Remove(this);
         BlockManager.Instance.UpdateBottomBlock();
-    }
-
-    private Rigidbody2D FindBlockBeneath()
-    {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position + (Vector3.down * 0.8f).SetZ(0), Vector2.down);
-        // Debug.DrawLine(startPos, Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        if (hit.collider != null && hit.transform.CompareTag("Block"))
-        {
-            //print("hit " + hit.transform.name);
-
-            return hit.rigidbody;
-        }
-        return null;
-    }
-
-    private IEnumerator WaitTillStable()
-    {
-        //yield return new WaitForSeconds(1);
-        ContactPoint2D[] contacts = new ContactPoint2D[10];
-        //Collider2D[] colliders = new Collider2D[10];
-        Rigidbody2D rig = GetComponent<Rigidbody2D>();
-        int contactNum = rig.GetContacts(contacts);
-        //int colliderNum = rig.GetContacts(colliders);
-        int stepPoint = 0;
-        Rigidbody2D rigidbodyBeneath;
-        rigidbodyBeneath = FindBlockBeneath();
-        if (rigidbodyBeneath == null)
-            yield break;
-
-        for (int i = 0; i < contacts.Length; ++i)
-        {
-            if (contacts[i].rigidbody == rigidbodyBeneath)
-                stepPoint++;
-        }
-        while (stepPoint < 2)
-        {
-            yield return null;
-            stepPoint = 0;
-            contactNum = rig.GetContacts(contacts);
-            rigidbodyBeneath = FindBlockBeneath();
-            //colliderNum = rig.GetContacts(colliders);
-            for (int i = 0; i < contacts.Length; ++i)
-            {
-                if (contacts[i].rigidbody == rigidbodyBeneath)
-                    stepPoint++;
-            }
-        }
-        print("finally " + stepPoint + " " + name);
-        isStable = true;
     }
 }
