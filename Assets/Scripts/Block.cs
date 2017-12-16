@@ -14,11 +14,25 @@ public class Block : MonoBehaviour
     public BlockType blockType;
 
     public bool isStable = true;
+    public BoundsCollisionDetector colDetector;
 
     // Use this for initialization
     void Start()
     {
+        if (colDetector)
+        {
+            colDetector.onContactWithOneSide = (_trans) =>
+            {
+                if (_trans.position.y < transform.position.y)
+                    print(name + " Land on " + _trans.name);
+            };
 
+            colDetector.onExitContactWithOneSide = (_trans) =>
+            {
+                //if (_trans.position.y < transform.position.y)
+                //    print("No longer land on " + _trans.name);
+            };
+        }
     }
 
     // Update is called once per frame
