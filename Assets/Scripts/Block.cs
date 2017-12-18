@@ -25,6 +25,8 @@ public class Block : MonoBehaviour
     private int m_remainImpactTime;
     public GameObject impactPlaceHolder;
 
+    private List<GameObject> m_playingParticle;
+
     public bool IsStable
     {
         get
@@ -39,6 +41,16 @@ public class Block : MonoBehaviour
                 //print(name + " change to stable " + value + " with impact speed " + rig.velocity);
             }
             m_isStable = value;
+        }
+    }
+
+    public List<GameObject> PlayingParticle
+    {
+        get
+        {
+            if (m_playingParticle == null)
+                m_playingParticle = new List<GameObject>();
+            return m_playingParticle;
         }
     }
 
@@ -127,7 +139,9 @@ public class Block : MonoBehaviour
 
                                 if(m_isPlayingImpactAnim == false)
                                 {
-                                    StartCoroutine(PlayImpactAnim());
+                                    //StartCoroutine(PlayImpactAnim());
+                                    StartCoroutine(PlayPointImpactAnim(contacts[i].point));
+                                    StartCoroutine(PlayPointImpactAnim(contacts[j].point));
                                 }
                                 else
                                 {
@@ -163,6 +177,27 @@ public class Block : MonoBehaviour
         m_isPlayingImpactAnim = false;
     }
 
+    private IEnumerator PlayPointImpactAnim(Vector3 _pos)
+    {
+        m_isPlayingImpactAnim = true;
+        m_remainImpactTime = 100;
+        GameObject particle = GameObject.Instantiate(Resources.Load("CircleSmoke"), _pos.SetZ(transform.localPosition.z), Quaternion.identity, null) as GameObject;
+        PlayingParticle.Add(particle);
+        particle.SetActive(true);
+        //print("Set active " + name);
+        while (m_remainImpactTime > 0)
+        {
+            m_remainImpactTime--;
+
+            yield return null;
+        }
+
+        particle.SetActive(false);
+        Destroy(particle.gameObject);
+        //print("Impact finished");
+        m_isPlayingImpactAnim = false;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Desk"))
@@ -181,6 +216,10 @@ public class Block : MonoBehaviour
     {
         hasBeenMarkedDestroyed = true;
         yield return new WaitForSeconds(1);
+        foreach(var particle in PlayingParticle)
+        {
+            Destroy(particle.gameObject);
+        }
         Destroy(gameObject);
 
         BlockManager.Instance.blocks.Remove(this);
