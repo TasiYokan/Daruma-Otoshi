@@ -77,7 +77,7 @@ public class Block : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.y < -1 && hasBeenMarkedDestroyed == false)
+        if (transform.position.y < -2 && hasBeenMarkedDestroyed == false)
         {
             //print("Fall from desk " + name);
             StartCoroutine(DestroyGameobject());
