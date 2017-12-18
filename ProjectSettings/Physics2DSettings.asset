@@ -6,8 +6,8 @@ Physics2DSettings:
   serializedVersion: 3
   m_Gravity: {x: 0, y: -9.81}
   m_DefaultMaterial: {fileID: 0}
-  m_VelocityIterations: 10
-  m_PositionIterations: 10
+  m_VelocityIterations: 15
+  m_PositionIterations: 15
   m_VelocityThreshold: 8
   m_MaxLinearCorrection: 1
   m_MaxAngularCorrection: 1
