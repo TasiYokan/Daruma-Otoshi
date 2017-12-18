@@ -128,6 +128,7 @@ public class Block : MonoBehaviour
         m_isPlayingImpactAnim = true;
         m_remainImpactTime = 100;
         impactPlaceHolder.SetActive(true);
+        //print("Set active " + name);
         while (m_remainImpactTime > 0)
         {
             m_remainImpactTime--;
@@ -136,7 +137,7 @@ public class Block : MonoBehaviour
         }
 
         impactPlaceHolder.SetActive(false);
-        print("Impact finished");
+        //print("Impact finished");
         m_isPlayingImpactAnim = false;
     }
 
