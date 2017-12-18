@@ -71,6 +71,28 @@ public class Block : MonoBehaviour
             StartCoroutine(DestroyGameobject());
         }
         CheckContacts();
+
+        float rot = (transform.localEulerAngles.z + 90) % 360;
+        if (rot > 315 || rot < 45)
+        {
+            impactPlaceHolder.transform.localPosition = new Vector3(0.5f, 0f, 0);
+            impactPlaceHolder.transform.localRotation = Quaternion.Euler(-180, 70, 0);
+        }
+        else if(rot > 225)
+        {
+            impactPlaceHolder.transform.localPosition = new Vector3(0, 0.25f, 0);
+            impactPlaceHolder.transform.localRotation = Quaternion.Euler(110, 0, 0);
+        }
+        else if(rot > 135)
+        {
+            impactPlaceHolder.transform.localPosition = new Vector3(-0.5f, 0f, 0);
+            impactPlaceHolder.transform.localRotation = Quaternion.Euler(-180, 75, 0);
+        }
+        else
+        {
+            impactPlaceHolder.transform.localPosition = new Vector3(0, -0.49f, 0);
+            impactPlaceHolder.transform.localRotation = Quaternion.Euler(-110, 0, 0);
+        }
     }
 
     private void CheckContacts()
