@@ -59,7 +59,8 @@ public class DragAndHit : MonoBehaviour
 
             StartCoroutine(SwapHammerTo(hit.point - Vector2.left * 0.85f, () =>
               {
-                  hit.transform.GetComponent<Rigidbody2D>().AddForce(forceDir * 7, ForceMode2D.Impulse);
+                  print("force " + forceDir.magnitude);
+                  hit.transform.GetComponent<Rigidbody2D>().AddForceAtPosition(forceDir * forceDir.magnitude * 0.7f, hit.point, ForceMode2D.Impulse);
               }));
         }
     }
