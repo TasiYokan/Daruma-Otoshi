@@ -18,8 +18,8 @@ public class Block : MonoBehaviour
     private bool m_isStable = true;
     public BoundsCollisionDetector colDetector;
 
-    ContactPoint2D[] contacts = new ContactPoint2D[10];
-    Rigidbody2D rig;
+    private ContactPoint2D[] contacts = new ContactPoint2D[10];
+    private Rigidbody2D m_rig;
 
     private bool m_isPlayingImpactAnim = false;
     private int m_remainImpactTime;
@@ -71,7 +71,7 @@ public class Block : MonoBehaviour
                 //    print("No longer land on " + _trans.name);
             };
         }
-        rig = GetComponent<Rigidbody2D>();
+        m_rig = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -109,7 +109,11 @@ public class Block : MonoBehaviour
 
     private void CheckContacts()
     {
-        int contactNum = rig.GetContacts(contacts);
+        // Incase rigidbody has been removed from child block
+        if (m_rig == null)
+            return;
+
+        int contactNum = m_rig.GetContacts(contacts);
         if (contactNum < 2)
         {
             IsStable = false;
@@ -132,7 +136,7 @@ public class Block : MonoBehaviour
                         {
                             float impact =
                                 (contacts[j].relativeVelocity * contacts[j].normalImpulse + contacts[i].relativeVelocity * contacts[i].normalImpulse).magnitude;
-                            if (impact > 9f)
+                            if (impact > 5f)
                             {
                                 //print(name + " get impluse " +
                                 //     impact + " from " + contacts[i].rigidbody.name);

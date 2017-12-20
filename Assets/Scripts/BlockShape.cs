@@ -21,6 +21,8 @@ public class BlockShape : MonoBehaviour
     [SerializeField]
     private int m_baseOrder;
 
+    public bool underComposite;
+
     public int BaseOrder
     {
         get
@@ -44,7 +46,8 @@ public class BlockShape : MonoBehaviour
         initBottomInverseY = bottomInverse.localPosition.y;
 
         BaseOrder = m_baseOrder;
-        SetDepthBasedOnY();
+        if (underComposite == false)
+            SetDepthBasedOnY();
     }
 
     public void SetDepthBasedOnY()
