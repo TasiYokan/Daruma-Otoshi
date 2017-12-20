@@ -37,7 +37,9 @@ public class CompositeBlock : MonoBehaviour
         {
             GetComponent<Rigidbody2D>().mass = 1;
             CopyComponent(_block, this.gameObject);
+            BlockManager.Instance.blocks.Remove(_block);
             Destroy(_block);
+
             Destroy(_block.GetComponent<CompositeCollider2D>());
             Destroy(_block.GetComponent<Rigidbody2D>());
             CopyComponent(_block.GetComponent<BoxCollider2D>(), this.gameObject);
@@ -66,6 +68,10 @@ public class CompositeBlock : MonoBehaviour
 
         GetAllShapesInChildren();
         SetAllChildShapeInOneLayer();
+
+
+        BlockManager.Instance.blocks.Add(this.GetComponent<Block>());
+        BlockManager.Instance.UpdateBottomBlock();
     }
 
     public void CombineAnotherBlock(Block _block)

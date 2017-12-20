@@ -43,7 +43,7 @@ public class BlockManager : MonoBehaviour
 
         for(int i = 0; i< blocks.Count;++i)
         {
-            blocks[i].transform.GetComponent<BlockShape>().BaseOrder = i;
+            blocks[i].transform.GetComponentInChildren<BlockShape>().BaseOrder = i;
         }
         if (blocks.Count == 0)
         {
