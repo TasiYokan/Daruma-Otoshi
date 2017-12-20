@@ -26,6 +26,7 @@ public class Block : MonoBehaviour
     public GameObject impactPlaceHolder;
 
     private List<GameObject> m_playingParticle;
+    public bool markAsDelete = false;
 
     public bool IsStable
     {
@@ -80,6 +81,7 @@ public class Block : MonoBehaviour
         if (transform.position.y < -2 && hasBeenMarkedDestroyed == false)
         {
             //print("Fall from desk " + name);
+            markAsDelete = true;
             StartCoroutine(DestroyGameobject());
         }
         CheckContacts();
@@ -149,8 +151,18 @@ public class Block : MonoBehaviour
 
                                     if (contacts[i].rigidbody.CompareTag("Desk"))
                                     {
+                                        markAsDelete = true;
                                         print("Fall on the desk " + name);
                                         StartCoroutine(DestroyGameobject());
+                                    }
+                                    else if(contacts[i].rigidbody.GetComponent<Block>()
+                                        && contacts[i].rigidbody.GetComponent<Block>().blockType == this.blockType)
+                                    {
+                                        print(name +" Fall on the same type with " + contacts[i].rigidbody.name + " " + contacts[i].rigidbody.GetComponent<Block>().blockType);
+                                        CompositeBlock comBlock = 
+                                            (GameObject.Instantiate(Resources.Load("CompositeBlock"), transform.position, Quaternion.identity, transform.parent)
+                                            as GameObject).GetComponent<CompositeBlock>();
+                                        comBlock.SetupFromBlock(this);
                                     }
                                 }
                                 else
