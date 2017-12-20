@@ -16,7 +16,6 @@ public class Block : MonoBehaviour
 
     [SerializeField]
     private bool m_isStable = true;
-    public BoundsCollisionDetector colDetector;
 
     private ContactPoint2D[] contacts = new ContactPoint2D[10];
     private Rigidbody2D m_rig;
@@ -58,20 +57,6 @@ public class Block : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if (colDetector)
-        {
-            colDetector.onContactWithOneSide = (_trans) =>
-            {
-                //if (_trans.position.y < transform.position.y)
-                //    print(name + " Land on " + _trans.name);
-            };
-
-            colDetector.onExitContactWithOneSide = (_trans) =>
-            {
-                //if (_trans.position.y < transform.position.y)
-                //    print("No longer land on " + _trans.name);
-            };
-        }
         m_rig = GetComponent<Rigidbody2D>();
     }
 
@@ -85,28 +70,6 @@ public class Block : MonoBehaviour
             StartCoroutine(DestroyGameobject());
         }
         CheckContacts();
-
-        //float rot = (transform.localEulerAngles.z + 90) % 360;
-        //if (rot > 315 || rot < 45)
-        //{
-        //    impactPlaceHolder.transform.localPosition = new Vector3(0.5f, 0f, 0);
-        //    impactPlaceHolder.transform.localRotation = Quaternion.Euler(-180, 70, 0);
-        //}
-        //else if(rot > 225)
-        //{
-        //    impactPlaceHolder.transform.localPosition = new Vector3(0, 0.25f, 0);
-        //    impactPlaceHolder.transform.localRotation = Quaternion.Euler(110, 0, 0);
-        //}
-        //else if(rot > 135)
-        //{
-        //    impactPlaceHolder.transform.localPosition = new Vector3(-0.5f, 0f, 0);
-        //    impactPlaceHolder.transform.localRotation = Quaternion.Euler(-180, 75, 0);
-        //}
-        //else
-        //{
-        //    impactPlaceHolder.transform.localPosition = new Vector3(0, -0.49f, 0);
-        //    impactPlaceHolder.transform.localRotation = Quaternion.Euler(-110, 0, 0);
-        //}
     }
 
     private void CheckContacts()
@@ -159,10 +122,10 @@ public class Block : MonoBehaviour
                                         && contacts[i].rigidbody.GetComponent<Block>().blockType == this.blockType)
                                     {
                                         print(name +" Fall on the same type with " + contacts[i].rigidbody.name + " " + contacts[i].rigidbody.GetComponent<Block>().blockType);
-                                        CompositeBlock comBlock = 
-                                            (GameObject.Instantiate(Resources.Load("CompositeBlock"), transform.position, Quaternion.identity, transform.parent)
-                                            as GameObject).GetComponent<CompositeBlock>();
-                                        comBlock.SetupFromBlock(this);
+                                        //CompositeBlock comBlock = 
+                                        //    (GameObject.Instantiate(Resources.Load("CompositeBlock"), transform.position, Quaternion.identity, transform.parent)
+                                        //    as GameObject).GetComponent<CompositeBlock>();
+                                        //comBlock.SetupFromBlock(this);
                                     }
                                 }
                                 else
@@ -180,24 +143,6 @@ public class Block : MonoBehaviour
         IsStable = false;
         return;
     }
-
-    //private IEnumerator PlayImpactAnim()
-    //{
-    //    m_isPlayingImpactAnim = true;
-    //    m_remainImpactTime = 100;
-    //    impactPlaceHolder.SetActive(true);
-    //    //print("Set active " + name);
-    //    while (m_remainImpactTime > 0)
-    //    {
-    //        m_remainImpactTime--;
-
-    //        yield return null;
-    //    }
-
-    //    impactPlaceHolder.SetActive(false);
-    //    //print("Impact finished");
-    //    m_isPlayingImpactAnim = false;
-    //}
 
     private IEnumerator PlayPointImpactAnim(Vector3 _pos)
     {
@@ -219,20 +164,6 @@ public class Block : MonoBehaviour
         //print("Impact finished");
         m_isPlayingImpactAnim = false;
     }
-
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if (collision.CompareTag("Desk"))
-    //    {
-    //        //print("Fall on the desk " + name);
-    //        StartCoroutine(DestroyGameobject());
-    //    }
-    //}
-    //private void OnTriggerExit2D(Collider2D collision)
-    //{
-    //    if (collision.transform.position.y < transform.position.y)
-    //        isStable = false;
-    //}
 
     private IEnumerator DestroyGameobject()
     {
