@@ -25,6 +25,7 @@ public class Block : MonoBehaviour
 
     private List<GameObject> m_playingParticle;
     private List<BlockShape> m_shapes;
+    private bool isUp = true;
 
     public bool IsStable
     {
@@ -67,10 +68,15 @@ public class Block : MonoBehaviour
         m_shapes = GetComponentsInChildren<BlockShape>().ToList();
 
         int mass = 0;
-        foreach (var shape in m_shapes)
+        m_shapes.Sort((x, y) =>
+            (x.transform.localPosition.y - y.transform.localPosition.y).Sgn());
+
+        for (int i = 0; i < m_shapes.Count; ++i)
         {
+            m_shapes[i].BaseOrder = i;
+            m_shapes[i].transform.localPosition = m_shapes[0].transform.localPosition.AddY(0.55f * i);
             BoxCollider2D boxCol = gameObject.AddComponent<BoxCollider2D>();
-            boxCol.offset = shape.transform.localPosition;
+            boxCol.offset = m_shapes[i].transform.localPosition;
             boxCol.size = new Vector2(1.3f, 0.6f);
             boxCol.usedByComposite = true;
             mass++;
@@ -95,6 +101,30 @@ public class Block : MonoBehaviour
             StartCoroutine(DestroyGameobject());
         }
         CheckContacts();
+        CheckDepthOrder();
+    }
+
+    private void CheckDepthOrder()
+    {
+        if ((transform.localEulerAngles.z + 90) % 360 > 180 && isUp)
+        {
+            isUp = false;
+            m_shapes.Sort((x, y) =>
+            -(x.transform.localPosition.y - y.transform.localPosition.y).Sgn());
+            for (int i = 0; i < m_shapes.Count; ++i)
+            {
+                m_shapes[i].BaseOrder = i;
+            }
+        }
+        else if ((transform.localEulerAngles.z + 90) % 360 < 180 && isUp == false)
+        {
+            m_shapes.Sort((x, y) =>
+            (x.transform.localPosition.y - y.transform.localPosition.y).Sgn());
+            for (int i = 0; i < m_shapes.Count; ++i)
+            {
+                m_shapes[i].BaseOrder = i;
+            }
+        }
     }
 
     private void CheckContacts()
