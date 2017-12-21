@@ -24,6 +24,7 @@ public class Block : MonoBehaviour
     private int m_remainImpactTime;
 
     private List<GameObject> m_playingParticle;
+    private List<BlockShape> m_shapes;
 
     public bool IsStable
     {
@@ -56,6 +57,33 @@ public class Block : MonoBehaviour
     void Start()
     {
         m_rig = GetComponent<Rigidbody2D>();
+        SetupProperties();
+    }
+
+    private void SetupProperties()
+    {
+        CleanExistingComponents();
+
+        m_shapes = GetComponentsInChildren<BlockShape>().ToList();
+
+        int mass = 0;
+        foreach (var shape in m_shapes)
+        {
+            BoxCollider2D boxCol = gameObject.AddComponent<BoxCollider2D>();
+            boxCol.offset = shape.transform.localPosition;
+            boxCol.size = new Vector2(1.3f, 0.6f);
+            boxCol.usedByComposite = true;
+            mass++;
+        }
+        m_rig.mass = mass;
+    }
+
+    private void CleanExistingComponents()
+    {
+        foreach (var boxCollider in GetComponents<BoxCollider2D>().ToList())
+        {
+            Destroy(boxCollider);
+        }
     }
 
     // Update is called once per frame
@@ -103,7 +131,7 @@ public class Block : MonoBehaviour
                                 //print(name + " get impluse " +
                                 //     impact + " from " + contacts[i].rigidbody.name);
 
-                                if(m_isPlayingImpactAnim == false)
+                                if (m_isPlayingImpactAnim == false)
                                 {
                                     //StartCoroutine(PlayImpactAnim());
                                     StartCoroutine(PlayPointImpactAnim(contacts[i].point));
@@ -114,10 +142,10 @@ public class Block : MonoBehaviour
                                         print("Fall on the desk " + name);
                                         StartCoroutine(DestroyGameobject());
                                     }
-                                    else if(contacts[i].rigidbody.GetComponent<Block>()
+                                    else if (contacts[i].rigidbody.GetComponent<Block>()
                                         && contacts[i].rigidbody.GetComponent<Block>().blockType == this.blockType)
                                     {
-                                        print(name +" Fall on the same type with " + contacts[i].rigidbody.name + " " + contacts[i].rigidbody.GetComponent<Block>().blockType);
+                                        print(name + " Fall on the same type with " + contacts[i].rigidbody.name + " " + contacts[i].rigidbody.GetComponent<Block>().blockType);
                                         //CompositeBlock comBlock = 
                                         //    (GameObject.Instantiate(Resources.Load("CompositeBlock"), transform.position, Quaternion.identity, transform.parent)
                                         //    as GameObject).GetComponent<CompositeBlock>();
@@ -165,7 +193,7 @@ public class Block : MonoBehaviour
     {
         hasBeenMarkedDestroyed = true;
         yield return new WaitForSeconds(1);
-        foreach(var particle in PlayingParticle)
+        foreach (var particle in PlayingParticle)
         {
             Destroy(particle.gameObject);
         }

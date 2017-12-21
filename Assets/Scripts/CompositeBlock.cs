@@ -26,7 +26,6 @@ public class CompositeBlock : MonoBehaviour
         for (int i = 0; i < blockShapes.Count; ++i)
         {
             blockShapes[i].BaseOrder = blockShapes[0].BaseOrder + i;
-            blockShapes[i].underComposite = true;
             blockShapes[i].transform.localPosition = blockShapes[i].transform.localPosition.SetZ(blockShapes[0].transform.localPosition.z);
         }
     }

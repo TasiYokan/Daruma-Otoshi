@@ -21,8 +21,6 @@ public class BlockShape : MonoBehaviour
     [SerializeField]
     private int m_baseOrder;
 
-    public bool underComposite;
-
     private Transform m_parentTrans;
 
     public int BaseOrder
@@ -49,8 +47,7 @@ public class BlockShape : MonoBehaviour
 
         m_parentTrans = transform.parent;
         BaseOrder = m_baseOrder;
-        if (underComposite == false)
-            SetDepthBasedOnY();
+        SetDepthBasedOnY();
 
     }
 
