@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 [ExecuteInEditMode]
@@ -55,6 +57,7 @@ public class BoundsCollisionDetector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+#if UNITY_EDITOR
         if (EditorApplication.isPlaying == false)
         {
             origin = transform.position - new Vector3(width * 0.5f, height * 0.5f);
@@ -63,6 +66,7 @@ public class BoundsCollisionDetector : MonoBehaviour
                 cornerColliders[i].transform.position = origin + new Vector3((i >> 1) * width, (i & 1) * height);
             }
         }
+#endif
     }
 
     public void RegisterNewContact(Transform _trans, int _cornerId)
