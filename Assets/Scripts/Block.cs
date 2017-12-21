@@ -74,7 +74,7 @@ public class Block : MonoBehaviour
         for (int i = 0; i < m_shapes.Count; ++i)
         {
             m_shapes[i].BaseOrder = i;
-            m_shapes[i].transform.localPosition = m_shapes[0].transform.localPosition.AddY(0.55f * i);
+            m_shapes[i].transform.localPosition = m_shapes[0].transform.localPosition.AddY(0.55f * i).SetX(m_shapes[i].transform.localPosition.x);
             BoxCollider2D boxCol = gameObject.AddComponent<BoxCollider2D>();
             boxCol.offset = m_shapes[i].transform.localPosition;
             boxCol.size = new Vector2(1.3f, 0.6f);
@@ -90,6 +90,17 @@ public class Block : MonoBehaviour
         {
             Destroy(boxCollider);
         }
+    }
+
+    private void CombineAnotherBlock(Block _block)
+    {
+        foreach(var shape in _block.m_shapes)
+        {
+            shape.transform.SetParent(transform);
+            shape.ParentTrans = transform;
+            SetupProperties();
+        }
+        _block.CompletelyDestroy();
     }
 
     // Update is called once per frame
@@ -180,6 +191,10 @@ public class Block : MonoBehaviour
                                         //    (GameObject.Instantiate(Resources.Load("CompositeBlock"), transform.position, Quaternion.identity, transform.parent)
                                         //    as GameObject).GetComponent<CompositeBlock>();
                                         //comBlock.SetupFromBlock(this);
+                                        if(contacts[i].rigidbody.GetComponent<Block>().IsStable)
+                                        {
+                                            CombineAnotherBlock(contacts[i].rigidbody.GetComponent<Block>());
+                                        }
                                     }
                                 }
                                 else
@@ -223,6 +238,11 @@ public class Block : MonoBehaviour
     {
         hasBeenMarkedDestroyed = true;
         yield return new WaitForSeconds(1);
+        CompletelyDestroy();
+    }
+
+    private void CompletelyDestroy()
+    {
         foreach (var particle in PlayingParticle)
         {
             Destroy(particle.gameObject);

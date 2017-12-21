@@ -37,6 +37,19 @@ public class BlockShape : MonoBehaviour
         }
     }
 
+    public Transform ParentTrans
+    {
+        get
+        {
+            return m_parentTrans;
+        }
+
+        set
+        {
+            m_parentTrans = value;
+        }
+    }
+
     // Use this for initialization
     void Start()
     {
