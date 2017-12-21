@@ -23,6 +23,8 @@ public class BlockShape : MonoBehaviour
 
     public bool underComposite;
 
+    private Transform m_parentTrans;
+
     public int BaseOrder
     {
         get
@@ -45,14 +47,16 @@ public class BlockShape : MonoBehaviour
         initBottomY = bottom.localPosition.y;
         initBottomInverseY = bottomInverse.localPosition.y;
 
+        m_parentTrans = transform.parent;
         BaseOrder = m_baseOrder;
         if (underComposite == false)
             SetDepthBasedOnY();
+
     }
 
     public void SetDepthBasedOnY()
     {
-        transform.localPosition = transform.localPosition.SetZ(-transform.localPosition.y * 0.1f);
+        m_parentTrans.localPosition = m_parentTrans.localPosition.SetZ(-m_parentTrans.localPosition.y * 0.1f);
     }
 
     private void UpdateAllSpritesOrder()
@@ -70,7 +74,7 @@ public class BlockShape : MonoBehaviour
         //print((transform.localEulerAngles.z + 90) % 360 > 180);
         float amplify = 0.06f;
 
-        scale = Mathf.Sin(((transform.localEulerAngles.z + 90) % 360) / 180f * Mathf.PI); //Mathf.Clamp(scale, -1, 1);
+        scale = Mathf.Sin(((m_parentTrans.localEulerAngles.z + 90) % 360) / 180f * Mathf.PI); //Mathf.Clamp(scale, -1, 1);
         top.localScale = top.localScale.SetY(Mathf.Clamp(scale, 0, 1));
         top.localPosition = top.localPosition.SetY(initTopY + top.localScale.y * amplify);
 
@@ -95,6 +99,6 @@ public class BlockShape : MonoBehaviour
         lastScale = scale;
 
         // For test only
-        //transform.Rotate(Vector3.forward, 1f);
+        //m_parentTrans.Rotate(Vector3.forward, 1f);
     }
 }

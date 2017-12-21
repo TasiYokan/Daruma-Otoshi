@@ -22,10 +22,8 @@ public class Block : MonoBehaviour
 
     private bool m_isPlayingImpactAnim = false;
     private int m_remainImpactTime;
-    public GameObject impactPlaceHolder;
 
     private List<GameObject> m_playingParticle;
-    public bool markAsDelete = false;
 
     public bool IsStable
     {
@@ -66,7 +64,6 @@ public class Block : MonoBehaviour
         if (transform.position.y < -2 && hasBeenMarkedDestroyed == false)
         {
             //print("Fall from desk " + name);
-            markAsDelete = true;
             StartCoroutine(DestroyGameobject());
         }
         CheckContacts();
@@ -114,7 +111,6 @@ public class Block : MonoBehaviour
 
                                     if (contacts[i].rigidbody.CompareTag("Desk"))
                                     {
-                                        markAsDelete = true;
                                         print("Fall on the desk " + name);
                                         StartCoroutine(DestroyGameobject());
                                     }

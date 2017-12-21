@@ -66,7 +66,7 @@ public class BlockManager : MonoBehaviour
         blockType = Random.Range(0f, 1f) > 0.5f ? "ComBlock_Purple" : "ComBlock_Grey";
         GameObject block = GameObject.Instantiate(Resources.Load(blockType) as GameObject, Vector3.up * (0.75f * _id - 1.2f), Quaternion.identity, this.transform);
         block.name = "ComBlock " + _id;
-        block.GetComponent<BlockShape>().BaseOrder = _id;
+        block.GetComponentInChildren<BlockShape>().BaseOrder = _id;
 
         BlockManager.Instance.blocks.Add(block.GetComponent<Block>());
         BlockManager.Instance.UpdateBottomBlock();
