@@ -94,12 +94,12 @@ public class Block : MonoBehaviour
 
     private void CombineAnotherBlock(Block _block)
     {
-        foreach(var shape in _block.m_shapes)
+        foreach (var shape in _block.m_shapes)
         {
             shape.transform.SetParent(transform);
             shape.ParentTrans = transform;
-            SetupProperties();
         }
+        SetupProperties();
         _block.CompletelyDestroy();
     }
 
@@ -167,7 +167,8 @@ public class Block : MonoBehaviour
                         {
                             float impact =
                                 (contacts[j].relativeVelocity * contacts[j].normalImpulse + contacts[i].relativeVelocity * contacts[i].normalImpulse).magnitude;
-                            if (impact > 5f)
+                            if (impact > 5f
+                                || contacts[i].relativeVelocity.magnitude + contacts[j].relativeVelocity.magnitude < 0.01f)
                             {
                                 //print(name + " get impluse " +
                                 //     impact + " from " + contacts[i].rigidbody.name);
@@ -191,7 +192,7 @@ public class Block : MonoBehaviour
                                         //    (GameObject.Instantiate(Resources.Load("CompositeBlock"), transform.position, Quaternion.identity, transform.parent)
                                         //    as GameObject).GetComponent<CompositeBlock>();
                                         //comBlock.SetupFromBlock(this);
-                                        if(contacts[i].rigidbody.GetComponent<Block>().IsStable)
+                                        if (CheckIfCombinable(contacts[i].rigidbody.GetComponent<Block>()))
                                         {
                                             CombineAnotherBlock(contacts[i].rigidbody.GetComponent<Block>());
                                         }
@@ -204,6 +205,26 @@ public class Block : MonoBehaviour
                             }
                             IsStable = true;
                         }
+                        else if (contacts[i].relativeVelocity.magnitude + contacts[j].relativeVelocity.magnitude < 0.01f)
+                        {
+                            if (contacts[i].rigidbody.CompareTag("Desk"))
+                            {
+                                print("Fall on the desk " + name);
+                                StartCoroutine(DestroyGameobject());
+                            }
+                            else if (contacts[i].rigidbody.GetComponent<Block>()
+                                && contacts[i].rigidbody.GetComponent<Block>().blockType == this.blockType
+                                && CheckIfCombinable(contacts[i].rigidbody.GetComponent<Block>()))
+                            {
+                                if (m_isPlayingImpactAnim == false)
+                                {
+                                    //StartCoroutine(PlayImpactAnim());
+                                    StartCoroutine(PlayPointImpactAnim(contacts[i].point));
+                                    StartCoroutine(PlayPointImpactAnim(contacts[j].point));
+                                }
+                                CombineAnotherBlock(contacts[i].rigidbody.GetComponent<Block>());
+                            }
+                        }
                         return;
                     }
                 }
@@ -211,6 +232,18 @@ public class Block : MonoBehaviour
         }
         IsStable = false;
         return;
+    }
+
+    private bool CheckIfCombinable(Block _block)
+    {
+        if (_block.IsStable == false)
+            return false;
+
+        if (Mathf.Abs(transform.localEulerAngles.z - _block.transform.localEulerAngles.z) < 5
+            || Mathf.Abs(transform.localEulerAngles.z - _block.transform.localEulerAngles.z) > 355)
+            return true;
+        else
+            return false;
     }
 
     private IEnumerator PlayPointImpactAnim(Vector3 _pos)
