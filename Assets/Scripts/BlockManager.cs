@@ -28,7 +28,11 @@ public class BlockManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            print("Reset all");
+            ResetAll();
+        }
     }
 
     public void UpdateBottomBlock()
@@ -70,5 +74,21 @@ public class BlockManager : MonoBehaviour
 
         BlockManager.Instance.blocks.Add(block.GetComponent<Block>());
         BlockManager.Instance.UpdateBottomBlock();
+    }
+
+    public void ResetAll()
+    {
+        foreach(var block in blocks)
+        {
+            foreach (var particle in block.PlayingParticle)
+            {
+                Destroy(particle.gameObject);
+            }
+            Destroy(block.gameObject);
+        }
+
+        blocks.Clear();
+
+        GenerateNewSet();
     }
 }
